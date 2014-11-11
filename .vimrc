@@ -3,16 +3,19 @@ set history=1024
 set autoread
 set wildmenu
  
-" Vundle
-set nocompatible               " be iMproved
-filetype off                   " required!
+set nocompatible
+filetype off
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
  
 " let Vundle manage Vundle
 " required! 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 		  
+"""""""""""""""""""""""""
+" php.vim 
+"""""""""""""""""""""""""
+Plugin 'php.vim'
 
 """""""""""""""""""""""""
 " Fugitive 
@@ -26,14 +29,22 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'scrooloose/nerdtree'
 let mapleader = ","
 map <leader>z :NERDTreeToggle<CR>
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
+"""""""""""""""""""""""""
+" NERDTreeTabs
+"""""""""""""""""""""""""
+Plugin 'jistr/vim-nerdtree-tabs'
+let mapleader = ","
+"let g:nerdtree_tabs_open_on_console_startup=1 
+map <leader>n <plug>NERDTreeTabsToggle<CR>   
 
 """""""""""""""""""""""""
 " bufexplorer
 """""""""""""""""""""""""
-Bundle 'bufexplorer.zip'
-let mapleader = ","
-map <leader>b :BufExplorer<CR>
+"Plugin 'bufexplorer.zip'
+"let mapleader = ","
+"map <leader>b :BufExplorer<CR>
 
 """""""""""""""""""""""""
 " NERDCommenter
@@ -54,12 +65,15 @@ set wildignore+=.git,.hg,.svn "ignore git
 set wildignore+=node_modules/ "node.js
 set wildignore+=*/build/,target/*,compressed/*,out/* "complie folder
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+nmap <leader>bb :CtrlPBuffer<cr>
+"nmap <leader>bm :CtrlPMixed<cr>
+"nmap <leader>bs :CtrlPMRU<cr>
  
  
 """""""""""""""""""""""""
 " EasyMotion
 """""""""""""""""""""""""
-Bundle 'Lokaltog/vim-easymotion'
+Plugin 'Lokaltog/vim-easymotion'
 let g:EasyMotion_leader_key = 'f'
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -94,6 +108,9 @@ set laststatus=2
 set ttimeoutlen=50
 "let g:airline_symbols = {}
 "let g:airline#extensions#whitespace#enabled=0
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_enable_fugitive=1
@@ -113,7 +130,7 @@ let g:airline_section_b='%{fugitive#statusline()}'
 """""""""""""""""""""""""
 " Taglist
 """""""""""""""""""""""""
-Bundle 'taglist.vim'
+Plugin 'taglist.vim'
 let mapleader = ","
 map <leader>l :TlistToggle<CR>
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
@@ -128,8 +145,8 @@ let Tlist_Use_Right_Window = 1
 """""""""""""""""""""""""
 " Mac Dash.app
 """""""""""""""""""""""""
-"Plugin 'rizzatti/funcoo.vim'
-"Plugin 'rizzatti/dash.vim'
+"bundle 'rizzatti/funcoo.vim'
+"bundle 'rizzatti/dash.vim'
 "let mapleader = "?"
 "nmap <silent> <leader>d <Plug>DashSearch
  
@@ -153,7 +170,7 @@ set encoding=utf-8
 "set backup
 set backupdir-=.
 set backupdir^=~/tmp,/tmp
- 
+
 set backspace=indent,eol,start
 "indent mode
 set autoindent
@@ -190,4 +207,25 @@ map <silent> <leader>ee :e ~/.vimrc<cr>
 " when .vimrc is edited, reload it
 autocmd! bufwritepost .vimrc source ~/.vimrc
 
- 
+"buffer
+""set hidden
+"
+"" To open a new empty buffer
+"" This replaces :tabnew which I used to bind to this mapping
+nmap <c-n> :enew<cr>
+"nmap bq :bd<cr>
+
+"" Move to the previous buffer
+noremap <c-Right> :bprevious<CR>
+" Move to the next buffer
+noremap <c-Left> :bnext<CR>
+"
+"nnoremap <silent> <Left> :bp<CR>
+"nnoremap <silent> <Right> :bn<CR>
+
+"" Close the current buffer and move to the previous one
+"" This replicates the idea of closing a tab
+""nmap <leader>bq :bp <BAR> bd #<CR>
+"
+"" Show all open buffers and their status
+""nmap <leader>bl :ls<CR>
