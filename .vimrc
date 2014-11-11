@@ -65,7 +65,7 @@ set wildignore+=.git,.hg,.svn "ignore git
 set wildignore+=node_modules/ "node.js
 set wildignore+=*/build/,target/*,compressed/*,out/* "complie folder
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-nmap <leader>bb :CtrlPBuffer<cr>
+nmap <c-b> :CtrlPBuffer<cr>
 "nmap <leader>bm :CtrlPMixed<cr>
 "nmap <leader>bs :CtrlPMRU<cr>
  
@@ -114,7 +114,7 @@ let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_left_sep=''
 let g:airline_right_sep=''
 let g:airline_enable_fugitive=1
-let g:airline_section_b='%{fugitive#statusline()}'
+"let g:airline_section_b='%{fugitive#statusline()}'
 "let g:airline_section_c="%t"
 "let g:airline_section_x="%y"
 "let g:airline_section_y='BN: %{bufnr("%")}'
@@ -133,6 +133,8 @@ let g:airline_section_b='%{fugitive#statusline()}'
 Plugin 'taglist.vim'
 let mapleader = ","
 map <leader>l :TlistToggle<CR>
+set tags=tags;
+set autochdir
 let Tlist_Ctags_Cmd = '/usr/bin/ctags'
 "不同时显示多个文件的tag，只显示当前文件的
 let Tlist_Show_One_File = 1 
@@ -162,7 +164,7 @@ filetype plugin indent on
 """""""""""""""""""""""""
 let mapleader = "/"
 set enc=utf-8
-set fencs=utf-8,ucs-bom,shift-jis,gb18030,gbk,gb2312
+set fencs=utf-8,gb18030,gbk,gb2312
 set helplang=cn
 set encoding=utf-8
  
@@ -174,6 +176,7 @@ set backupdir^=~/tmp,/tmp
 set backspace=indent,eol,start
 "indent mode
 set autoindent
+set foldmethod=indent
 set linespace=2
 "show line and column number
 set ruler
@@ -213,12 +216,12 @@ autocmd! bufwritepost .vimrc source ~/.vimrc
 "" To open a new empty buffer
 "" This replaces :tabnew which I used to bind to this mapping
 nmap <c-n> :enew<cr>
-"nmap bq :bd<cr>
+nmap bq :bd<cr>
 
 "" Move to the previous buffer
-noremap <c-Right> :bprevious<CR>
+noremap <c-Left> :bprevious<CR>
 " Move to the next buffer
-noremap <c-Left> :bnext<CR>
+noremap <c-Right> :bnext<CR>
 "
 "nnoremap <silent> <Left> :bp<CR>
 "nnoremap <silent> <Right> :bn<CR>
